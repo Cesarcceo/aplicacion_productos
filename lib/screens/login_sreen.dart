@@ -1,7 +1,7 @@
-import 'package:aplicacion_productos/providers/login_form_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:aplicacion_productos/providers/login_form_provier.dart';
 import 'package:aplicacion_productos/ui/input_decorations.dart';
 import 'package:aplicacion_productos/widgets/widgets.dart';
 
@@ -19,6 +19,7 @@ class LoginScreen extends StatelessWidget {
               CardContainer(
                 child: Column(
                   children: [
+                    
                     const SizedBox(height: 10,),
                     Text('Login', style: Theme.of(context).textTheme.headlineMedium),
                     const SizedBox(height: 30),
@@ -56,6 +57,8 @@ class _LoginForm extends StatelessWidget {
 
         child: Column(
           children: [
+
+
             TextFormField(
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
@@ -73,7 +76,10 @@ class _LoginForm extends StatelessWidget {
                     : 'Ingrese un correo valido';
               },
             ),
+
+
             const SizedBox(height: 30),
+
             TextFormField(
               obscureText: true,
               autocorrect: false,
@@ -89,21 +95,41 @@ class _LoginForm extends StatelessWidget {
                   return 'La contraseña deve contener minimo 6 caracteres';
               },
             ),
+
+
             const SizedBox(height: 30),
+
             MaterialButton(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               disabledColor: Colors.grey,
               elevation: 0,
               color: Colors.deepPurple,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                child: const Text('Ingresar', style: TextStyle(color: Colors.white)),
-              ),
-              onPressed: (){
+              onPressed: loginForm.isLoading ? null :() async {
+
+                FocusScope.of(context).unfocus();
+
                 if(!loginForm.isValidForm())return;
 
+                loginForm.isLoading=true;
+
+                await Future.delayed(const Duration(seconds: 2));
+
+                loginForm.isLoading=false;
+
                 Navigator.pushReplacementNamed(context, 'home');
-              }
+
+              },
+
+
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                child: Text(
+                  loginForm.isLoading
+                  ? 'Cargando'
+                  : 'Ingresar', 
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
             ),
           ],
         ),
