@@ -19,14 +19,55 @@ class LoginScreen extends StatelessWidget {
                     Text('Login', style: Theme.of(context).textTheme.headlineMedium),
                     const SizedBox(height: 30,),
 
-                    Text('Formulario'),
+                    _LoginForm(),
 
                   ],
                 ),
               ),
+
+              SizedBox(height: 50),
+              Text('cear nueva cuaeta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
             ],
           ),
         ) 
+      ),
+    );
+  }
+}
+
+class _LoginForm extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Form(
+        child: Column(
+          children: [
+            TextFormField(
+              autocorrect: false,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const  InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.deepPurple,
+                  )
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.deepPurple,
+                    width: 2,
+                  )
+                ),
+                hintText: 'email',
+                labelText: 'Correo electronico',
+                labelStyle: TextStyle(
+                  color: Colors.grey
+                ),
+                prefixIcon: Icon(Icons.alternate_email_sharp, color: Colors.deepPurple)
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
