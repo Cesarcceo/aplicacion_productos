@@ -1,6 +1,9 @@
+import 'package:aplicacion_productos/providers/login_form_provier.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:aplicacion_productos/ui/input_decorations.dart';
 import 'package:aplicacion_productos/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -18,14 +21,18 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10,),
                     Text('Login', style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(height: 30,),
-                    _LoginForm(),
+                    const SizedBox(height: 30),
+
+                    ChangeNotifierProvider(
+                      create: (_) => LoginFormProvider(),
+                      child: _LoginForm(),
+                    ),
                   ],
                 ),
               ),
 
               const SizedBox(height: 50),
-              const Text('cear nueva cuaeta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text('Crear nueva cuenta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 50),
             ],
           ),
@@ -39,9 +46,14 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final loginForm = Provider.of<LoginFormProvider>(context);
+  
     return Container(
       child: Form(
+        key: loginForm.formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+
         child: Column(
           children: [
             TextFormField(
@@ -52,6 +64,7 @@ class _LoginForm extends StatelessWidget {
                 labelText: 'Correo electronico',
                 prefixIcon: Icons.alternate_email_sharp
               ),
+              onChanged: (value) => loginForm.email=value,
               validator: (value){
                 String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                   RegExp regExp  = new RegExp(pattern);
@@ -70,6 +83,7 @@ class _LoginForm extends StatelessWidget {
                 labelText: 'Contraseña',
                 prefixIcon: Icons.lock_outline,                
               ),
+              onChanged: (value) => loginForm.password=value,
               validator: (value){
                 if(value!=null && value.length>= 6) return null;
                   return 'La contraseña deve contener minimo 6 caracteres';
@@ -85,7 +99,11 @@ class _LoginForm extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 child: const Text('Ingresar', style: TextStyle(color: Colors.white)),
               ),
-              onPressed: (){}
+              onPressed: (){
+                if(!loginForm.isValidForm())return;
+
+                Navigator.pushReplacementNamed(context, 'home');
+              }
             ),
           ],
         ),
