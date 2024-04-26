@@ -32,6 +32,9 @@ class _ProductsScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final productForm =Provider.of<ProductFormProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -74,7 +77,9 @@ class _ProductsScreenBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child:const Icon(Icons.save),
         onPressed: (){
-    
+          if(!productForm.isValidForm()) return;
+
+          producService.saveOrCreateProduct(productForm.product);
         },
       ),
        );
@@ -96,6 +101,8 @@ class _ProductForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
+          key: productForm.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               const SizedBox(height: 30,),
