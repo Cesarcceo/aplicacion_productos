@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:aplicacion_productos/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,6 +8,8 @@ import 'package:aplicacion_productos/models/models.dart';
 class ProductsService extends ChangeNotifier{
   final String _baseUrl='capacitacion-flotter-default-rtdb.firebaseio.com';
   final List<Product> products=[];
+  late Product selectedProduct;
+  
   bool isLoading=true;
 
   ProductsService(){
