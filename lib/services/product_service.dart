@@ -15,7 +15,6 @@ class ProductsService extends ChangeNotifier{
 
   ProductsService(){
     LoadProducts();
-
   }
 
   Future<List<Product>> LoadProducts () async {
@@ -59,11 +58,9 @@ class ProductsService extends ChangeNotifier{
     final resp =await http.put(url, body: product.toJson()); 
     final decodedData=resp.body;
 
-    print(decodedData);
-
-    
+    final index = products.indexWhere((element) => element.id == product.id);
+    products[index] = product;
 
     return product.id!;
-
   }
 }
