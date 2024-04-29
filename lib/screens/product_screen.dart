@@ -10,6 +10,7 @@ import 'package:aplicacion_productos/widgets/widgets.dart';
 
 
 class ProductScreen extends StatelessWidget {
+  const ProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,6 @@ class ProductScreen extends StatelessWidget {
 
 class _ProductsScreenBody extends StatelessWidget {
   const _ProductsScreenBody({
-    super.key,
     required this.producService,
   });
 
@@ -50,7 +50,7 @@ class _ProductsScreenBody extends StatelessWidget {
                   left: 20,
                   child: IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(Icons.arrow_back, size: 40,color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, size: 40,color: Colors.white),
                   ),
                 ),
                 Positioned(
@@ -58,7 +58,7 @@ class _ProductsScreenBody extends StatelessWidget {
                   right: 20,
                   child: IconButton(
                     onPressed: () async {
-                      final ImagePicker picker= new ImagePicker();
+                      final ImagePicker picker= ImagePicker();
                       final XFile? pickedFile = await picker.pickImage(
                         source: ImageSource.camera,
                         imageQuality: 100
@@ -70,7 +70,7 @@ class _ProductsScreenBody extends StatelessWidget {
                         }
                         print('Tenemos imagen ${ pickedFile.path}');
                     },
-                    icon: Icon(Icons.camera_alt, size: 40,color: Colors.white),
+                    icon: const Icon(Icons.camera_alt, size: 40,color: Colors.white),
                   ),
                 ),
               ],
@@ -108,7 +108,7 @@ class _ProductForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
@@ -121,8 +121,10 @@ class _ProductForm extends StatelessWidget {
                 initialValue: product.name,
                 onChanged: (value) => product.name = value,
                 validator: (value) {
-                  if (value == null || value.isEmpty ) 
+                  if (value == null || value.isEmpty ) {
                     return 'El nombre es Obligatorio';
+                  }
+                  return null;
                 },
                 decoration: inputDecorations.authInputDecorations(
                   hintText: 'Nombre del producto', 

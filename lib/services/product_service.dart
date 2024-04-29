@@ -17,6 +17,7 @@ class ProductsService extends ChangeNotifier{
     LoadProducts();
   }
 
+  // ignore: non_constant_identifier_names
   Future<List<Product>> LoadProducts () async {
     isLoading=true;
     notifyListeners();
@@ -55,9 +56,9 @@ class ProductsService extends ChangeNotifier{
   }
 
   Future<String> updateProduct(Product product) async {
-    final url=Uri.https(_baseUrl, 'products/${ product.id }.json');
-    final resp =await http.put(url, body: product.toJson()); 
-    final decodedData=resp.body;
+    // final url=Uri.https(_baseUrl, 'products/${ product.id }.json');
+    // final resp =await http.put(url, body: product.toJson()); 
+    // final decodedData=resp.body;
 
     final index = products.indexWhere((element) => element.id == product.id);
     products[index] = product;

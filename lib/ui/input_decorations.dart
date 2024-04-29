@@ -24,7 +24,7 @@ class inputDecorations{
         color: Colors.grey
       ),
       prefixIcon: prefixIcon!=null 
-      ? Icon(Icons.alternate_email_sharp, color: Colors.deepPurple) : null
+      ? const Icon(Icons.alternate_email_sharp, color: Colors.deepPurple) : null
     );
   }
 }
