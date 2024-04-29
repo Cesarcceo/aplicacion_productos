@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:aplicacion_productos/providers/product_from_provider.dart';
 import 'package:aplicacion_productos/services/product_service.dart';
@@ -56,8 +57,18 @@ class _ProductsScreenBody extends StatelessWidget {
                   top: 60,
                   right: 20,
                   child: IconButton(
-                    onPressed: () {
-                      //camara, galeria
+                    onPressed: () async {
+                      final ImagePicker picker= new ImagePicker();
+                      final XFile? pickedFile = await picker.pickImage(
+                        source: ImageSource.camera,
+                        imageQuality: 100
+                        );
+
+                        if (pickedFile == null){
+                          print('No selecciono nada');
+                          return;
+                        }
+                        print('Tenemos imagen ${ pickedFile.path}');
                     },
                     icon: Icon(Icons.camera_alt, size: 40,color: Colors.white),
                   ),
