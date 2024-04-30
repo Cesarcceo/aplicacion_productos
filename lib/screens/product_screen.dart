@@ -65,10 +65,10 @@ class _ProductsScreenBody extends StatelessWidget {
                         );
 
                         if (pickedFile == null){
-                          print('No selecciono nada');
                           return;
                         }
                         print('Tenemos imagen ${ pickedFile.path}');
+                        producService.updateSelectedProductImage(pickedFile.path);
                     },
                     icon: const Icon(Icons.camera_alt, size: 40,color: Colors.white),
                   ),

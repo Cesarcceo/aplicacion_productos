@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:aplicacion_productos/models/product.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,6 +9,8 @@ class ProductsService extends ChangeNotifier{
   final String _baseUrl='capacitacion-flotter-default-rtdb.firebaseio.com';
   final List<Product> products=[];
   late Product selectedProduct;
+
+  File? newPictureFile;
   
   bool isLoading=true;
   bool isSaving=false;
@@ -75,5 +77,13 @@ class ProductsService extends ChangeNotifier{
     products.add(product);
 
     return product.id!;
+  }
+
+  void updateSelectedProductImage(String path) async {
+
+    selectedProduct.picture = path;
+    newPictureFile = File.fromUri(Uri(path: path));
+
+    notifyListeners();
   }
 }
