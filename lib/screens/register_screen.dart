@@ -125,7 +125,7 @@ class _LoginForm extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, 'home');
               } else {
                 print( errorMessage );
-              loginForm.isLoading=false;
+                loginForm.isLoading=false;
               }
               // ignore: use_build_context_synchronously
               Navigator.pushReplacementNamed(context, 'home');
