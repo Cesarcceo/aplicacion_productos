@@ -47,7 +47,7 @@ class ProductImage extends StatelessWidget {
     if (picture.startsWith('http')){
       return FadeInImage(
       image: NetworkImage(url!),
-      placeholder: const AssetImage('assets/jar-loadion.gif'),
+      placeholder: const AssetImage('assets/jar-loading.gif'),
       fit: BoxFit.cover,
       );
     }
