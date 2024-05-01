@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'package:aplicacion_productos/services/services.dart';
@@ -126,7 +125,7 @@ class _LoginForm extends StatelessWidget {
                 // ignore: use_build_context_synchronously
                 Navigator.pushReplacementNamed(context, 'home');
               } else {
-                print( errorMessage );
+                NotificationsService.showSnackbar(errorMessage);
               loginForm.isLoading=false;
               }    
             },
